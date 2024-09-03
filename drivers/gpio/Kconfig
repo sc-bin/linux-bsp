@@ -100,7 +100,7 @@ config GPIO_GENERIC
 	tristate
 
 config GPIO_REGMAP
-	depends on REGMAP
+	select REGMAP
 	tristate
 
 # put drivers in the right section, in alphabetical order
@@ -523,6 +523,7 @@ config GPIO_REG
 config GPIO_ROCKCHIP
 	tristate "Rockchip GPIO support"
 	depends on ARCH_ROCKCHIP || COMPILE_TEST
+	select GENERIC_IRQ_CHIP
 	select GPIOLIB_IRQCHIP
 	default ARCH_ROCKCHIP
 	help

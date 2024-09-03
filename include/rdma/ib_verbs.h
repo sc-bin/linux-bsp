@@ -2817,6 +2817,7 @@ struct ib_block_iter {
 	/* internal states */
 	struct scatterlist *__sg;	/* sg holding the current aligned block */
 	dma_addr_t __dma_addr;		/* unaligned DMA address of this block */
+	size_t __sg_numblocks;		/* ib_umem_num_dma_blocks() */
 	unsigned int __sg_nents;	/* number of SG entries */
 	unsigned int __sg_advance;	/* number of bytes to advance in sg in next step */
 	unsigned int __pg_bit;		/* alignment of current block */
@@ -4097,8 +4098,13 @@ static inline int ib_dma_map_sgtable_attrs(struct ib_device *dev,
 					   enum dma_data_direction direction,
 					   unsigned long dma_attrs)
 {
+	int nents;
+
 	if (ib_uses_virt_dma(dev)) {
-		ib_dma_virt_map_sg(dev, sgt->sgl, sgt->orig_nents);
+		nents = ib_dma_virt_map_sg(dev, sgt->sgl, sgt->orig_nents);
+		if (!nents)
+			return -EIO;
+		sgt->nents = nents;
 		return 0;
 	}
 	return dma_map_sgtable(dev->dma_device, sgt, direction, dma_attrs);

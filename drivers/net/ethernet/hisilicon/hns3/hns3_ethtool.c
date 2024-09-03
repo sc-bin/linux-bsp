@@ -739,7 +739,9 @@ static int hns3_get_link_ksettings(struct net_device *netdev,
 		hns3_get_ksettings(h, cmd);
 		break;
 	case HNAE3_MEDIA_TYPE_FIBER:
-		if (module_type == HNAE3_MODULE_TYPE_CR)
+		if (module_type == HNAE3_MODULE_TYPE_UNKNOWN)
+			cmd->base.port = PORT_OTHER;
+		else if (module_type == HNAE3_MODULE_TYPE_CR)
 			cmd->base.port = PORT_DA;
 		else
 			cmd->base.port = PORT_FIBRE;
@@ -985,6 +987,7 @@ static int hns3_set_reset(struct net_device *netdev, u32 *flags)
 	struct hnae3_ae_dev *ae_dev = pci_get_drvdata(h->pdev);
 	const struct hnae3_ae_ops *ops = h->ae_algo->ops;
 	const struct hns3_reset_type_map *rst_type_map;
+	enum ethtool_reset_flags rst_flags;
 	u32 i, size;
 
 	if (ops->ae_dev_resetting && ops->ae_dev_resetting(h))
@@ -1004,6 +1007,7 @@ static int hns3_set_reset(struct net_device *netdev, u32 *flags)
 	for (i = 0; i < size; i++) {
 		if (rst_type_map[i].rst_flags == *flags) {
 			rst_type = rst_type_map[i].rst_type;
+			rst_flags = rst_type_map[i].rst_flags;
 			break;
 		}
 	}
@@ -1018,6 +1022,8 @@ static int hns3_set_reset(struct net_device *netdev, u32 *flags)
 	ops->set_default_reset_request(ae_dev, rst_type);
 
 	ops->reset_event(h->pdev, h);
+
+	*flags &= ~rst_flags;
 
 	return 0;
 }
