@@ -2277,28 +2277,28 @@
 
 			mipib_pins_a: mipib@0 {
 				pins = "PK6", "PK7", "PK8",
-					"PK9", "PK10", "PK11";
+					"PK9",  "PK11";
 				function = "mcsib";
 				drive-strength = <10>;
 			};
 
 			mipib_pins_b: mipib@1 {
 				pins = "PK6", "PK7", "PK8",
-					"PK9", "PK10", "PK11";
+					"PK9",  "PK11";
 				function = "gpio_in";
 
 			};
 
 			mipib_4lane_pins_a: mipib_4lane@0 {
 				pins = "PK6", "PK7", "PK8",
-					"PK9", "PK10", "PK11";
+					"PK9",  "PK11";
 				function = "mcsib";
 				drive-strength = <10>;
 			};
 
 			mipib_4lane_pins_b: mipib_4lane@1 {
 				pins = "PK6", "PK7", "PK8",
-					"PK9", "PK10", "PK11";
+					"PK9",  "PK11";
 				function = "gpio_in";
 			};
 
