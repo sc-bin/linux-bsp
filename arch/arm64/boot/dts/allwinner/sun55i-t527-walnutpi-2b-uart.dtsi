@@ -1,0 +1,162 @@
+
+&pio {
+		uart0_pins_a: uart0_pins@0 {
+		pins = "PB9", "PB10";
+		function = "uart0";
+	};
+
+	uart0_pins_b: uart0_pins@1 {
+		pins = "PB9", "PB10";
+		function = "gpio_in";
+	};
+
+	uart2_pins_a: uart2_pins@0 {
+		pins = "PB0", "PB1";
+		function = "uart2";
+	};
+
+	uart2_pins_b: uart2_pins@1 {
+		pins = "PB0", "PB1";
+		function = "gpio_in";
+	};
+
+	uart3_pins_a: uart3_pins@0 {
+		pins = "PD14", "PD15";
+		function = "uart3";
+	};
+
+	uart3_pins_b: uart3_pins@1 {
+		pins = "PD14", "PD15";
+		function = "gpio_in";
+	};
+
+	uart4_pins_a: uart4_pins@0 {
+		pins = "PD18", "PD19";
+		function = "uart4";
+	};
+
+	uart4_pins_b: uart4_pins@1 {
+		pins = "PD18", "PD19";
+		function = "gpio_in";
+	};
+
+	uart5_pins_a: uart5_pins@0 {
+		pins = "PE11", "PE12";
+		function = "uart5";
+	};
+
+	uart5_pins_b: uart5_pins@1 {
+		pins = "PE11", "PE12";
+		function = "gpio_in";
+	};
+
+	uart6_pins_a: uart6_pins@0 {
+		pins = "PI6", "PI7";
+		function = "uart6";
+	};
+
+	uart6_pins_b: uart6_pins@1 {
+		pins = "PI6", "PI7";
+		function = "gpio_in";
+	};
+
+	uart7_pins_a: uart7_pins@0 {
+		pins = "PB11", "PB12";
+		function = "uart7";
+	};
+
+	uart7_pins_b: uart7_pins@1 {
+		pins = "PB11", "PB12";
+		function = "gpio_in";
+	};
+};
+
+&r_pio {
+	uart8_pins_a: uart8_pins@0 {
+		pins = "PL2", "PL3";
+		function = "s_uart0";
+	};
+
+	uart8_pins_b: uart8_pins@1 {
+		pins = "PL2", "PL3";
+		function = "gpio_in";
+	};
+
+	uart9_pins_a: uart9_pins@0 {
+		pins = "PM0", "PM1";
+		function = "s_uart1";
+	};
+
+	uart9_pins_b: uart9_pins@1 {
+		pins = "PM0", "PM1";
+		function = "gpio_in";
+	};
+};
+
+&uart0 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&uart0_pins_a>;
+	pinctrl-1 = <&uart0_pins_b>;
+	uart-supply = <&reg_cldo3>;
+	status = "okay";
+};
+
+&uart1 {
+	status = "okay";
+};
+
+&uart2 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&uart2_pins_a>;
+	pinctrl-1 = <&uart2_pins_b>;
+	status = "disabled";
+};
+
+&uart3 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&uart3_pins_a>;
+	pinctrl-1 = <&uart3_pins_b>;
+	status = "disabled";
+};
+
+&uart4 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&uart4_pins_a>;
+	pinctrl-1 = <&uart4_pins_b>;
+	status = "disabled";
+};
+
+&uart5 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&uart5_pins_a>;
+	pinctrl-1 = <&uart5_pins_b>;
+	status = "disabled";
+};
+
+&uart6 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&uart6_pins_a>;
+	pinctrl-1 = <&uart6_pins_b>;
+	status = "disabled";
+};
+
+&uart7 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&uart7_pins_a>;
+	pinctrl-1 = <&uart7_pins_b>;
+	status = "disabled";
+};
+
+&uart8 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&uart8_pins_a>;
+	pinctrl-1 = <&uart8_pins_b>;
+	status = "disabled";
+};
+
+&uart9 {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&uart9_pins_a>;
+	pinctrl-1 = <&uart9_pins_b>;
+	status = "disabled";
+};

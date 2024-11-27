@@ -1,0 +1,94 @@
+
+
+
+&r_pio {
+	s_irrx_pins_default: s_irrx@0 {
+		pins = "PL11";
+		function = "s_cir";
+	};
+
+	s_irrx_pins_sleep: s_irrx@1 {
+		pins = "PL11";
+		function = "gpio_in";
+	};
+};
+
+&pio {
+	irrx_pins_default: irrx@0 {
+		pins = "PI8";
+		function = "cir";
+	};
+
+	irrx_pins_sleep: irrx@1 {
+		pins = "PI8";
+		function = "gpio_in";
+	};
+
+	irtx_pins_default: irtx@0 {
+		pins = "PH18";
+		function = "cir";
+	};
+
+	irtx_pins_sleep: irtx@1 {
+		pins = "PH18";
+		function = "gpio_in";
+	};
+};
+/{
+	cir_param: cir_param {
+		gpio_group = <1>;      /* 0:PL 1:PM */
+		gpio_pin = <11>;
+		gpio_function = <2>;
+		count = <15>;
+		ir_power_key_code0 = <0x40>;
+		ir_addr_code0 = <0xfe01>;
+		ir_power_key_code1 = <0x1a>;
+		ir_addr_code1 = <0xfb04>;
+		ir_power_key_code2 = <0xf2>;
+		ir_addr_code2 = <0x2992>;
+		ir_power_key_code3 = <0x57>;
+		ir_addr_code3 = <0x9f00>;
+		ir_power_key_code4 = <0xdc>;
+		ir_addr_code4 = <0x4cb3>;
+		ir_power_key_code5 = <0x18>;
+		ir_addr_code5 = <0xff00>;
+		ir_power_key_code6 = <0xdc>;
+		ir_addr_code6 = <0xdd22>;
+		ir_power_key_code7 = <0x0d>;
+		ir_addr_code7 = <0xbc00>;
+		ir_power_key_code8 = <0x4d>;
+		ir_addr_code8 = <0x4040>;
+		ir_power_key_code9 = <0x08>;
+		ir_addr_code9 = <0xfb04>;
+		ir_power_key_code10 = <0x00>;
+		ir_addr_code10 = <0xfc03>;
+		ir_power_key_code11 = <0x00>;
+		ir_addr_code11 = <0xbf00>;
+		ir_power_key_code12 = <0xea>;
+		ir_addr_code12 = <0xfb04>;
+		ir_power_key_code13 = <0x42>;
+		ir_addr_code13 = <0xbf00>;
+		ir_power_key_code14 = <0x0f>;
+		ir_addr_code14 = <0xff00>;
+	};
+};
+&irrx {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&irrx_pins_default>;
+	pinctrl-1 = <&irrx_pins_sleep>;
+	status = "okay";
+};
+
+&s_irrx {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&s_irrx_pins_default>;
+	pinctrl-1 = <&s_irrx_pins_sleep>;
+	status = "disabled";
+};
+
+&irtx {
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&irtx_pins_default>;
+	pinctrl-1 = <&irtx_pins_sleep>;
+	status = "disabled";
+};
