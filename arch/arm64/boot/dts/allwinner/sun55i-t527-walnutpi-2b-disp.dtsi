@@ -24,7 +24,7 @@
 };
 
 &dlcd0 {
-	status = "okay";
+	status = "disabled";
 	panel = <&rgb_panel0>;
 	ports {
 		tcon0_out: port@1 {
