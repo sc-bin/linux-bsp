@@ -75,7 +75,7 @@
 	pinctrl-0 = <&spi1_pins_default &spi1_pins_cs0>;
 	sunxi,spi-cs-mode = <SUNXI_SPI_CS_SOFT>;
 	pinctrl-names = "default";
-	clock-frequency = <600000000>;
+	clock-frequency = <100000000>;
 	#address-cells = <1>;
 	#size-cells = <0>;
 	cs-gpios = <0>, <&pio PI 6 GPIO_ACTIVE_LOW>;

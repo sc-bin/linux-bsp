@@ -1,0 +1,32 @@
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/gpio/sun4i-gpio.h>
+#include <dt-bindings/leds/common.h>
+/ {
+	fragment@0 {
+		target = <&pio>;
+		__overlay__ {
+			twi2_pins_PI_default: twi2@0 {
+				pins = "PI15", "PI16";
+				function = "twi2";
+				drive-strength = <10>;
+				bias-pull-up;
+			};
+		};
+	};
+	
+	fragment@1 {
+		target = <&twi2>;
+		__overlay__ {
+			clock-frequency = <400000>;
+			pinctrl-0 = <&twi2_pins_PI_default>;
+			pinctrl-names = "default";
+			/* For stability and backwards compatibility, we recommend setting ‘twi_drv_used’ to 1 */
+			twi_drv_used = <1>;
+			status = "okay";
+		};
+	};
+	
+};
+

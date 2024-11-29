@@ -12,19 +12,31 @@
 			status = "okay";
 		};
 	};
-
+	fragment@1 {
+		target = <&usbc2>;
+		__overlay__ {
+			device_type = "usbc2";
+			status = "okay";
+		};
+	};
+	fragment@2 {
+		target = <&xhci2>;
+		__overlay__ {
+			dr_mode = "host";
+			status = "okay";
+		};
+	};
+	fragment@3 {
+		target = <&u2phy>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+	
 };
 
 
-// &usbc2 {
-// 	device_type = "usbc2";
-// 	status = "okay";
-// };
 
-// &xhci2 {
-// 	dr_mode = "host";
-// 	status = "okay";
-// };
 
 // &u2phy {
 // 	status = "okay";

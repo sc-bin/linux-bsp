@@ -1,0 +1,24 @@
+/dts-v1/;
+/plugin/;
+/ {
+	fragment@0 {
+		target = <&pio>;
+		__overlay__ {
+			uart2_pins_default: uart2_pins@0 {
+				pins = "PB0", "PB1";
+				function = "uart2";
+			};
+		};
+	};
+	
+	fragment@1 {
+		target = <&uart2>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&uart2_pins_default>;
+			status = "okay";
+		};
+	};
+	
+};
+
