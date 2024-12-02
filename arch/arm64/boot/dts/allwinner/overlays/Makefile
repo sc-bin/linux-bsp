@@ -3,6 +3,8 @@
 
 dtb-$(CONFIG_ARCH_SUNXI) += \
 	sun55i-t527-disable_uart0.dtbo \
+	sun55i-t527-spidev1_0.dtbo \
+	sun55i-t527-spidev1_1.dtbo \
 	sun55i-t527-i2c1.dtbo \
 	sun55i-t527-i2c2.dtbo \
 	sun55i-t527-i2c4.dtbo \
