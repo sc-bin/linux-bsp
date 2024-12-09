@@ -526,8 +526,8 @@
 		wlan_power    = "axp2202-aldo3", "axp2202-bldo1"; /* vcc-pl/vcc-pg/vcc-pm */
 		wlan_power_vol= <3300000>, <1800000>;
 		wlan_busnum   = <0x1>;
-		wlan_regon    = <&pio PG 13 GPIO_ACTIVE_HIGH>;
-		wlan_hostwake = <&pio PG 14 GPIO_ACTIVE_HIGH>;
+		wlan_regon    = <&pio PM 1 GPIO_ACTIVE_HIGH>;
+		wlan_hostwake = <&pio PM 0 GPIO_ACTIVE_HIGH>;
 		wakeup-source;
 	};
 
@@ -538,7 +538,7 @@
 		clock-names;
 		bt_power      = "axp2202-aldo3", "axp2202-bldo1"; /* vcc-pl/vcc-pg/vcc-pm */
 		bt_power_vol  = <3300000>, <1800000>;
-		bt_rst_n      = <&pio PG 12 GPIO_ACTIVE_LOW>;
+		bt_rst_n      = <&pio PM 2 GPIO_ACTIVE_LOW>;
 	};
 };
 
@@ -553,8 +553,8 @@
 &btlpm {
 	compatible  = "allwinner,sunxi-btlpm";
 	uart_index  = <0x1>;
-	bt_wake     = <&pio PG 11 GPIO_ACTIVE_HIGH>;
-	bt_hostwake = <&pio PG 10 GPIO_ACTIVE_HIGH>;
+	bt_wake     = <&pio PM 3 GPIO_ACTIVE_HIGH>;
+	bt_hostwake = <&pio PM 4 GPIO_ACTIVE_HIGH>;
 	wakeup-source;
 	status      = "okay";
 };
@@ -630,8 +630,7 @@
 
 
 /{
-
-	leds {
+	leds: leds@0 {
 		compatible = "gpio-leds";
 		status = "okay";
 		power-led {
@@ -640,13 +639,6 @@
 			gpios = <&pio PB 8 GPIO_ACTIVE_HIGH>; 
 			default-state = "on";
 		};
-		// CAM0-GPIO {
-		// 	function = LED_FUNCTION_STATUS;
-		// 	color = <LED_COLOR_ID_GREEN>;
-		// 	gpios = <&pio PK 22 GPIO_ACTIVE_HIGH>; 
-		// 	default-state = "on";
-		// };
-	
 	};
 };
 
