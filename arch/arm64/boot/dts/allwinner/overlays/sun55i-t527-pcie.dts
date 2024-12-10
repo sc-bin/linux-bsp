@@ -7,7 +7,7 @@
 	fragment@0 {
 		target = <&combophy>;
 		__overlay__ {
-			phy_use_sel = <0>; /* 0:PCIE; 1:USB3 */
+			phy_use_sel = <2>; /* 0:PCIE; 1:USB3 */
 			status = "okay";
 		};
 	};
