@@ -214,7 +214,7 @@
 	rx-sync-en;
 	/* edp not need dai-type */
 	dai-type = "hdmi";
-	status		= "disabled";
+	status		= "okay";
 };
 
 &i2s2_mach {
