@@ -14,6 +14,7 @@
 #include "sun55i-t527-walnutpi-2b-gmac.dtsi"
 #include "sun55i-t527-walnutpi-2b-video.dtsi"
 #include "sun55i-t527-walnutpi-2b-disp.dtsi"
+#include "sun55i-t527-walnutpi-2b-thermal.dtsi"
 #include <dt-bindings/leds/common.h>
 /{
 	model = "walnutpi-2b";
@@ -681,36 +682,6 @@
 &npu {
 	npu-supply = <&reg_ext_axp1530_dcdc3>;
 	status = "okay";
-};
-
-&cpul_thermal_zone {
-	cpul_trips: trips {
-		cpul_crit: cpu_crit@0 {
-			temperature = <115000>;
-			type = "critical";
-			hysteresis = <0>;
-		};
-	};
-};
-
-&cpub_thermal_zone {
-	cpub_trips: trips {
-		cpub_crit: cpu_crit@0 {
-			temperature = <115000>;
-			type = "critical";
-			hysteresis = <0>;
-		};
-	};
-};
-
-&gpu_thermal_zone {
-	gpu_trips: trips {
-		gpu_crit: gpu_crit@0 {
-			temperature = <115000>;
-			type = "critical";
-			hysteresis = <0>;
-		};
-	};
 };
 
 &pd1 {
