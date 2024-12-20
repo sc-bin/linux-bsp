@@ -172,6 +172,21 @@
 		memory-region = <&dsp0_rpbuf_reserved>;
 		status = "okay";
 	};
+	user-keys {
+		device_type = "gpiokey";
+		compatible = "gpio-keys-polled";
+		poll-interval = <100>;
+		user-button {
+
+			label = "ok_key";
+			gpios = <&pio PB 7  GPIO_ACTIVE_LOW>;
+			linux,input-type = "1>";
+			linux,code = <0x1c>;
+			debounce-interval = <10>; // 消抖时间，单位为ms
+			bias-pull-up; // 设置为上拉
+
+		};
+	};
 
 };
 
