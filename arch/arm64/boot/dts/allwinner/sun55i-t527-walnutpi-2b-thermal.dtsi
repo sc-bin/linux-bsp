@@ -16,7 +16,7 @@
 		interrupt-parent = <&r_pio>;
 		interrupts = <PL 8 IRQ_TYPE_EDGE_FALLING>;
 		pulses-per-revolution = <1>;
-		cooling-levels = <20 100 150 200 250>;
+		cooling-levels = <100 120 150 200 250>;
 	};
 };
 
