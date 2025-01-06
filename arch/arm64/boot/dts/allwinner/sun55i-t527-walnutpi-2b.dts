@@ -181,7 +181,7 @@
 			label = "ok_key";
 			gpios = <&pio PB 7  GPIO_ACTIVE_LOW>;
 			linux,input-type = "1>";
-			linux,code = <0x1c>;
+			linux,code = <0x00>;
 			debounce-interval = <10>; // 消抖时间，单位为ms
 			bias-pull-up; // 设置为上拉
 
