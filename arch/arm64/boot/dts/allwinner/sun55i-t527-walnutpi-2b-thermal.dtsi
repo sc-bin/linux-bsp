@@ -16,52 +16,48 @@
 		interrupt-parent = <&r_pio>;
 		interrupts = <PL 8 IRQ_TYPE_EDGE_FALLING>;
 		pulses-per-revolution = <1>;
-		cooling-levels = <100 120 150 200 250>;
+		cooling-levels = <1 120 150 200 250>;
 	};
 };
 
-
 &cpul_thermal_zone {
+	polling-delay-passive = <100>;
+	polling-delay = <8000>;
 	cpul_trips: trips {
 		cpu_temp_20: trip-20 {
 			temperature = <20000>;
 			type = "active";
-			hysteresis = <0>;
-		};
-		cpu_temp_40: trip-40 {
-			temperature = <40000>;
-			type = "active";
-			hysteresis = <0>;
+			hysteresis = <5000>;
 		};
 		cpu_temp_50: trip-50 {
 			temperature = <50000>;
 			type = "active";
-			hysteresis = <0>;
+			hysteresis = <5000>;
 		};
 		cpu_temp_60: trip-60 {
 			temperature = <60000>;
 			type = "active";
-			hysteresis = <0>;
+			hysteresis = <5000>;
 		};
 		cpu_temp_70: trip-70 {
 			temperature = <70000>;
 			type = "active";
-			hysteresis = <0>;
+			hysteresis = <5000>;
 		};
 		cpu_temp_80: trip-80 {
 			temperature = <80000>;
 			type = "active";
-			hysteresis = <0>;
+			hysteresis = <5000>;
 		};
 		cpu_temp_90: trip-90 {
 			temperature = <90000>;
 			type = "active";
-			hysteresis = <0>;
+			hysteresis = <5000>;
 		};
 		cpu_temp_100: trip-100 {
 			temperature = <100000>;
 			type = "active";
-			hysteresis = <0>;
+			hysteresis = <5000>;
 		};
 		
 		cpul_crit: cpu_crit@0 {
@@ -76,10 +72,7 @@
 			trip = <&cpu_temp_20>;
 			cooling-device = <&fan 0 0>;
 		};
-		tepid {
-			trip = <&cpu_temp_40>;
-			cooling-device = <&fan 1 1>;
-		};
+
 		warm {
 			trip = <&cpu_temp_50>;
 			cooling-device = <&fan 2 2>;
@@ -94,4 +87,3 @@
 		};
 	};
 };
-
