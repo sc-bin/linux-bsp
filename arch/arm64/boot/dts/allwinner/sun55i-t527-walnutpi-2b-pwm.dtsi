@@ -1,0 +1,409 @@
+
+&pio {
+	pwm0_0_pin_active: pwm0_0@0 {
+		pins = "PB8";
+		function = "pwm0_0";
+	};
+	
+	pwm0_0_pin_sleep: pwm0_0@1 {
+		pins = "PB8";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	
+	pwm0_1_pin_active: pwm0_1@0 {
+		pins = "PI0";
+		function = "pwm0_1";
+	};
+	
+	pwm0_1_pin_sleep: pwm0_1@1 {
+		pins = "PI0";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	
+	pwm0_2_pin_active: pwm0_2@0 {
+		pins = "PI1";
+		function = "pwm0_2";
+	};
+	
+	pwm0_2_pin_sleep: pwm0_2@1 {
+		pins = "PI1";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	
+	pwm0_3_pin_active: pwm0_3@0 {
+		pins = "PI2";
+		function = "pwm0_3";
+	};
+	
+	pwm0_3_pin_sleep: pwm0_3@1 {
+		pins = "PI2";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	
+	pwm0_4_pin_active: pwm0_4@0 {
+		pins = "PI3";
+		function = "pwm0_4";
+	};
+	
+	pwm0_4_pin_sleep: pwm0_4@1 {
+		pins = "PI3";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	
+	pwm0_5_pin_active: pwm0_5@0 {
+		pins = "PI4";
+		function = "pwm0_5";
+	};
+	
+	pwm0_5_pin_sleep: pwm0_5@1 {
+		pins = "PI4";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	pwm0_6_pin_active: pwm0_6@0 {
+		pins = "PI5";
+		function = "pwm0_6";
+	};
+	
+	pwm0_6_pin_sleep: pwm0_6@1 {
+		pins = "PI5";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	pwm0_7_pin_active: pwm0_7@0 {
+		pins = "PI6";
+		function = "pwm0_7";
+	};
+	
+	pwm0_7_pin_sleep: pwm0_7@1 {
+		pins = "PI6";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	pwm0_8_pin_active: pwm0_8@0 {
+		pins = "PI7";
+		function = "pwm0_8";
+	};
+	
+	pwm0_8_pin_sleep: pwm0_8@1 {
+		pins = "PI7";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	pwm0_9_pin_active: pwm0_9@0 {
+		pins = "PB5";
+		function = "pwm0_9";
+	};
+	
+	pwm0_9_pin_sleep: pwm0_9@1 {
+		pins = "PB5";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	pwm0_10_pin_active: pwm0_10@0 {
+		pins = "PB6";
+		function = "pwm0_10";
+	};
+	
+	pwm0_10_pin_sleep: pwm0_10@1 {
+		pins = "PB6";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	pwm0_11_pin_active: pwm0_11@0 {
+		pins = "PI10";
+		function = "pwm0_11";
+	};
+	
+	pwm0_11_pin_sleep: pwm0_11@1 {
+		pins = "PI10";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	pwm0_12_pin_active: pwm0_12@0 {
+		pins = "PI11";
+		function = "pwm0_12";
+	};
+	
+	pwm0_12_pin_sleep: pwm0_12@1 {
+		pins = "PI11";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	pwm0_13_pin_active: pwm0_13@0 {
+		pins = "PI12";
+		function = "pwm0_13";
+	};
+	
+	pwm0_13_pin_sleep: pwm0_13@1 {
+		pins = "PI12";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	pwm0_14_pin_active: pwm0_14@0 {
+		pins = "PI13";
+		function = "pwm0_14";
+	};
+	
+	pwm0_14_pin_sleep: pwm0_14@1 {
+		pins = "PI13";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	pwm0_15_pin_active: pwm0_15@0 {
+		pins = "PI14";
+		function = "pwm0_15";
+	};
+	
+	pwm0_15_pin_sleep: pwm0_15@1 {
+		pins = "PI14";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	
+	pwm1_0_pin_active: pwm1_0@0 {
+		pins = "PI15";
+		function = "pwm1_0";
+	};
+	pwm1_0_pin_sleep: pwm01_0@1 {
+		pins = "PI15";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	pwm1_1_pin_active: pwm1_1@0 {
+		pins = "PI16";
+		function = "pwm1_1";
+	};
+	
+	pwm1_1_pin_sleep: pwm1_1@1 {
+		pins = "PI16";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+};
+&r_pio {
+	mcu_pwm0_0_pin_active: mcu_pwm0_0@0 {
+		pins = "PL2";
+		function = "mcu_pwm0_0";
+	};
+	mcu_pwm0_0_pin_sleep: mcu_pwm0_0@1 {
+		pins = "PL2";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	mcu_pwm0_1_pin_active: mcu_pwm0_1@0 {
+		pins = "PL3";
+		function = "mcu_pwm0_1";
+	};
+	mcu_pwm0_1_pin_sleep: mcu_pwm0_1@1 {
+		pins = "PL3";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	mcu_pwm0_2_pin_active: mcu_pwm0_2@0 {
+		pins = "PL4";
+		function = "mcu_pwm0_2";
+	};
+	mcu_pwm0_2_pin_sleep: mcu_pwm0_2@1 {
+		pins = "PL4";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	mcu_pwm0_3_pin_active: mcu_pwm0_3@0 {
+		pins = "PL5";
+		function = "mcu_pwm0_3";
+	};
+	mcu_pwm0_3_pin_sleep: mcu_pwm0_3@1 {
+		pins = "PL5";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	mcu_pwm0_4_pin_active: mcu_pwm0_4@0 {
+		pins = "PL6";
+		function = "mcu_pwm0_4";
+	};
+	mcu_pwm0_4_pin_sleep: mcu_pwm0_4@1 {
+		pins = "PL6";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+	
+	mcu_pwm0_5_pin_active: mcu_pwm0_5@0 {
+		pins = "PL7";
+		function = "mcu_pwm0_5";
+	};
+	mcu_pwm0_5_pin_sleep: mcu_pwm0_5@1 {
+		pins = "PL7";
+		function = "gpio_in";
+		bias-pull-down;
+	};
+};
+
+&pwm0_0 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_0_pin_active>;
+	pinctrl-1 = <&pwm0_0_pin_sleep>;
+	status = "okay";
+};
+
+&pwm0_1 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_1_pin_active>;
+	pinctrl-1 = <&pwm0_1_pin_sleep>;
+	status = "disabled";
+};
+
+&pwm0_2 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_2_pin_active>;
+	pinctrl-1 = <&pwm0_2_pin_sleep>;
+	status = "disabled";
+};
+
+&pwm0_3 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_3_pin_active>;
+	pinctrl-1 = <&pwm0_3_pin_sleep>;
+	status = "disabled";
+};
+
+&pwm0_4 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_4_pin_active>;
+	pinctrl-1 = <&pwm0_4_pin_sleep>;
+	status = "okay";
+};
+
+&pwm0_5 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_5_pin_active>;
+	pinctrl-1 = <&pwm0_5_pin_sleep>;
+	status = "okay";
+};
+&pwm0_6 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_6_pin_active>;
+	pinctrl-1 = <&pwm0_6_pin_sleep>;
+	status = "okay";
+};
+&pwm0_7 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_7_pin_active>;
+	pinctrl-1 = <&pwm0_7_pin_sleep>;
+	status = "okay";
+};
+&pwm0_8 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_8_pin_active>;
+	pinctrl-1 = <&pwm0_8_pin_sleep>;
+	status = "okay";
+};
+&pwm0_9 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_9_pin_active>;
+	pinctrl-1 = <&pwm0_9_pin_sleep>;
+	status = "okay";
+};
+&pwm0_10 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_10_pin_active>;
+	pinctrl-1 = <&pwm0_10_pin_sleep>;
+	status = "okay";
+};
+&pwm0_11 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_11_pin_active>;
+	pinctrl-1 = <&pwm0_11_pin_sleep>;
+	status = "okay";
+};
+&pwm0_12 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_12_pin_active>;
+	pinctrl-1 = <&pwm0_12_pin_sleep>;
+	status = "okay";
+};
+&pwm0_13 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_13_pin_active>;
+	pinctrl-1 = <&pwm0_13_pin_sleep>;
+	status = "okay";
+};
+&pwm0_14 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_14_pin_active>;
+	pinctrl-1 = <&pwm0_14_pin_sleep>;
+	status = "okay";
+};
+&pwm0_15 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm0_15_pin_active>;
+	pinctrl-1 = <&pwm0_15_pin_sleep>;
+	status = "okay";
+};
+
+
+&pwm1 {
+	status = "okay";
+};
+&pwm1_0 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm1_0_pin_active>;
+	pinctrl-1 = <&pwm1_0_pin_sleep>;
+	status = "okay";
+};
+&pwm1_1 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&pwm1_1_pin_active>;
+	pinctrl-1 = <&pwm1_1_pin_sleep>;
+	status = "okay";
+};
+
+
+
+&s_pwm0 {
+	status = "okay";
+};
+&mcu_pwm0 {
+	status = "okay";
+};
+&mcu_pwm0_0 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&mcu_pwm0_0_pin_active>;
+	pinctrl-1 = <&mcu_pwm0_0_pin_sleep>;
+	status = "okay";
+};
+&mcu_pwm0_1 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&mcu_pwm0_1_pin_active>;
+	pinctrl-1 = <&mcu_pwm0_1_pin_sleep>;
+	status = "okay";
+};
+&mcu_pwm0_2 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&mcu_pwm0_2_pin_active>;
+	pinctrl-1 = <&mcu_pwm0_2_pin_sleep>;
+	status = "okay";
+};
+&mcu_pwm0_3 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&mcu_pwm0_3_pin_active>;
+	pinctrl-1 = <&mcu_pwm0_3_pin_sleep>;
+	status = "okay";
+};
+&mcu_pwm0_4 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&mcu_pwm0_4_pin_active>;
+	pinctrl-1 = <&mcu_pwm0_4_pin_sleep>;
+	status = "okay";
+};
+&mcu_pwm0_5 {
+	pinctrl-names = "active", "sleep";
+	pinctrl-0 = <&mcu_pwm0_5_pin_active>;
+	pinctrl-1 = <&mcu_pwm0_5_pin_sleep>;
+	status = "okay";
+};

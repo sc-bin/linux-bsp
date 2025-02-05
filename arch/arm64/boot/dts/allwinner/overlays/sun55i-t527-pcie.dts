@@ -1,0 +1,43 @@
+/dts-v1/;
+/plugin/;
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/gpio/sun4i-gpio.h>
+#include <dt-bindings/leds/common.h>
+/ {
+	fragment@0 {
+		target = <&combophy>;
+		__overlay__ {
+			phy_use_sel = <2>; /* 0:PCIE; 1:USB3 */
+			status = "okay";
+		};
+	};
+
+	fragment@1 {
+		target = <&pcie>;
+		__overlay__ {
+			reset-gpios = <&pio PH 11 GPIO_ACTIVE_HIGH>;
+			wake-gpios = <&pio PH 12 GPIO_ACTIVE_HIGH>;
+			clk-freq-100M;
+			status = "okay";
+		};
+	};
+
+	fragment@2 {
+		target = <&leds>;
+		__overlay__ {
+			pcie-enable {
+				function = LED_FUNCTION_STATUS;
+				color = <LED_COLOR_ID_GREEN>;
+				gpios = <&pio PE 3 GPIO_ACTIVE_HIGH>; 
+				default-state = "on";
+			};
+			pcie-pwr {
+				function = LED_FUNCTION_STATUS;
+				color = <LED_COLOR_ID_GREEN>;
+				gpios = <&pio PH 13 GPIO_ACTIVE_HIGH>; 
+				default-state = "on";
+			};
+		};
+	};
+};
+

@@ -1,0 +1,25 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&r_pio>;
+		__overlay__ {
+			uart8_pins_default: uart8_pins@0 {
+				pins = "PL2", "PL3";
+				function = "s_uart0";
+			};
+		};
+	};
+	
+	fragment@1 {
+		target = <&uart8>;
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&uart8_pins_default>;
+			status = "okay";
+		};
+	};
+	
+};
+

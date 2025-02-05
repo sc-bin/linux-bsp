@@ -1,0 +1,95 @@
+
+&pio {
+	spi0_pins_default: spi0@0 {
+		pins = "PC2", "PC4", "PC12";
+		function = "spi0";
+		drive-strength = <10>;
+		bias-pull-up;
+	};
+	
+	
+	spi0_pins_cs: spi0@1 {
+		pins = "PC3";
+		function = "spi0";
+		drive-strength = <10>;
+		bias-pull-up;
+	};
+	
+	
+	spi0_pins_sleep: spi0@2 {
+		pins = "PJ20", "PJ21", "PJ22", "PJ23", "PJ25", "PJ26";
+		function = "gpio_in";
+	};
+	
+	spi1_pins_default: spi1@0 {
+		pins = "PI3", "PI4", "PI5";
+		function = "spi1";
+		drive-strength = <10>;
+		bias-pull-up;
+	};
+	
+	spi1_pins_cs0: spi1@1 {
+		pins = "PI2";
+		function = "spi1";
+		drive-strength = <10>;
+		bias-pull-up;
+	};
+	
+};
+&r_pio {
+	s_spi0_pins_default: s_spi0@0 {
+		pins = "PL10", "PL11", "PL12";
+		function = "s_spi0";
+		drive-strength = <10>;
+		bias-pull-up;
+	};
+	
+	s_spi0_pins_sleep: s_spi0@1 {
+		pins = "PL10", "PL11", "PL12";
+		function = "gpio_in";
+	};
+	
+	
+};
+
+&spi0 {
+	clock-frequency = <100000000>;
+	pinctrl-0 = <&spi0_pins_default &spi0_pins_cs>;
+	pinctrl-1 = <&spi0_pins_sleep>;
+	pinctrl-names = "default", "sleep";
+	sunxi,spi-num-cs = <1>;
+	sunxi,spi-bus-mode = <SUNXI_SPI_BUS_NOR>;
+	sunxi,spi-cs-mode = <SUNXI_SPI_CS_SOFT>;
+	status = "okay";
+	
+	flash@0 {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "winbond,w25q64", "jedec,spi-nor";
+		reg = <0>;
+		spi-max-frequency = <2000000>;
+	};
+};
+&spi1 {
+	sunxi,spi-num-cs = <2>;
+	pinctrl-0 = <&spi1_pins_default &spi1_pins_cs0>;
+	sunxi,spi-cs-mode = <SUNXI_SPI_CS_SOFT>;
+	pinctrl-names = "default";
+	clock-frequency = <100000000>;
+	#address-cells = <1>;
+	#size-cells = <0>;
+	cs-gpios = <0>, <&pio PI 6 GPIO_ACTIVE_LOW>;
+	status = "disabled";
+	
+};
+
+&r_spi0 {
+	pinctrl-0 = <&s_spi0_pins_default>;
+	pinctrl-1 = <&s_spi0_pins_sleep>;
+	pinctrl-names = "default", "sleep";
+	sunxi,spi-bus-mode = <SUNXI_SPI_BUS_MASTER>;
+	sunxi,spi-cs-mode = <SUNXI_SPI_CS_AUTO>;
+	clock-frequency = <100000000>;
+	status = "okay";
+	
+};
