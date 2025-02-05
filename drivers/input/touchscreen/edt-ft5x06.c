@@ -72,6 +72,8 @@
 #define EDT_DEFAULT_NUM_X		1024
 #define EDT_DEFAULT_NUM_Y		1024
 
+#define POLL_INTERVAL_MS		17	/* 17ms = 60fps */
+
 enum edt_pmode {
 	EDT_PMODE_NOT_SUPPORTED,
 	EDT_PMODE_HIBERNATE,
@@ -104,7 +106,6 @@ struct edt_ft5x06_ts_data {
 	u16 num_x;
 	u16 num_y;
 	struct regulator *vcc;
-	struct regulator *iovcc;
 
 	struct gpio_desc *reset_gpio;
 	struct gpio_desc *wake_gpio;
@@ -130,6 +131,9 @@ struct edt_ft5x06_ts_data {
 
 	struct edt_reg_addr reg_addr;
 	enum edt_ver version;
+
+	struct timer_list timer;
+	struct work_struct work_i2c_poll;
 };
 
 struct edt_i2c_chip_data {
@@ -277,6 +281,22 @@ static irqreturn_t edt_ft5x06_ts_isr(int irq, void *dev_id)
 
 out:
 	return IRQ_HANDLED;
+}
+
+static void edt_ft5x06_ts_irq_poll_timer(struct timer_list *t)
+{
+	struct edt_ft5x06_ts_data *tsdata = from_timer(tsdata, t, timer);
+
+	schedule_work(&tsdata->work_i2c_poll);
+	mod_timer(&tsdata->timer, jiffies + msecs_to_jiffies(POLL_INTERVAL_MS));
+}
+
+static void edt_ft5x06_ts_work_i2c_poll(struct work_struct *work)
+{
+	struct edt_ft5x06_ts_data *tsdata = container_of(work,
+			struct edt_ft5x06_ts_data, work_i2c_poll);
+
+	edt_ft5x06_ts_isr(0, tsdata);
 }
 
 static int edt_ft5x06_register_write(struct edt_ft5x06_ts_data *tsdata,
@@ -899,7 +919,6 @@ static int edt_ft5x06_ts_identify(struct i2c_client *client,
 		 * the identification registers.
 		 */
 		switch (rdbuf[0]) {
-		case 0x11:   /* EDT EP0110M09 */
 		case 0x35:   /* EDT EP0350M09 */
 		case 0x43:   /* EDT EP0430M09 */
 		case 0x50:   /* EDT EP0500M09 */
@@ -1064,12 +1083,11 @@ static void edt_ft5x06_ts_set_regs(struct edt_ft5x06_ts_data *tsdata)
 	}
 }
 
-static void edt_ft5x06_disable_regulators(void *arg)
+static void edt_ft5x06_disable_regulator(void *arg)
 {
 	struct edt_ft5x06_ts_data *data = arg;
 
 	regulator_disable(data->vcc);
-	regulator_disable(data->iovcc);
 }
 
 static int edt_ft5x06_ts_probe(struct i2c_client *client,
@@ -1110,33 +1128,14 @@ static int edt_ft5x06_ts_probe(struct i2c_client *client,
 		return error;
 	}
 
-	tsdata->iovcc = devm_regulator_get(&client->dev, "iovcc");
-	if (IS_ERR(tsdata->iovcc)) {
-		error = PTR_ERR(tsdata->iovcc);
-		if (error != -EPROBE_DEFER)
-			dev_err(&client->dev,
-				"failed to request iovcc regulator: %d\n", error);
-		return error;
-	}
-
-	error = regulator_enable(tsdata->iovcc);
-	if (error < 0) {
-		dev_err(&client->dev, "failed to enable iovcc: %d\n", error);
-		return error;
-	}
-
-	/* Delay enabling VCC for > 10us (T_ivd) after IOVCC */
-	usleep_range(10, 100);
-
 	error = regulator_enable(tsdata->vcc);
 	if (error < 0) {
 		dev_err(&client->dev, "failed to enable vcc: %d\n", error);
-		regulator_disable(tsdata->iovcc);
 		return error;
 	}
 
 	error = devm_add_action_or_reset(&client->dev,
-					 edt_ft5x06_disable_regulators,
+					 edt_ft5x06_disable_regulator,
 					 tsdata);
 	if (error)
 		return error;
@@ -1234,17 +1233,27 @@ static int edt_ft5x06_ts_probe(struct i2c_client *client,
 
 	i2c_set_clientdata(client, tsdata);
 
-	irq_flags = irq_get_trigger_type(client->irq);
-	if (irq_flags == IRQF_TRIGGER_NONE)
-		irq_flags = IRQF_TRIGGER_FALLING;
-	irq_flags |= IRQF_ONESHOT;
+	if (client->irq) {
+		irq_flags = irq_get_trigger_type(client->irq);
+		if (irq_flags == IRQF_TRIGGER_NONE)
+			irq_flags = IRQF_TRIGGER_FALLING;
+		irq_flags |= IRQF_ONESHOT;
 
-	error = devm_request_threaded_irq(&client->dev, client->irq,
-					NULL, edt_ft5x06_ts_isr, irq_flags,
-					client->name, tsdata);
-	if (error) {
-		dev_err(&client->dev, "Unable to request touchscreen IRQ.\n");
-		return error;
+		error = devm_request_threaded_irq(&client->dev, client->irq,
+						  NULL, edt_ft5x06_ts_isr,
+						  irq_flags, client->name,
+						  tsdata);
+		if (error) {
+			dev_err(&client->dev, "Unable to request touchscreen IRQ.\n");
+			return error;
+		}
+	} else {
+		INIT_WORK(&tsdata->work_i2c_poll,
+			  edt_ft5x06_ts_work_i2c_poll);
+		timer_setup(&tsdata->timer, edt_ft5x06_ts_irq_poll_timer, 0);
+		tsdata->timer.expires = jiffies +
+					msecs_to_jiffies(POLL_INTERVAL_MS);
+		add_timer(&tsdata->timer);
 	}
 
 	error = devm_device_add_group(&client->dev, &edt_ft5x06_attr_group);
@@ -1270,6 +1279,10 @@ static int edt_ft5x06_ts_remove(struct i2c_client *client)
 {
 	struct edt_ft5x06_ts_data *tsdata = i2c_get_clientdata(client);
 
+	if (!client->irq) {
+		del_timer(&tsdata->timer);
+		cancel_work_sync(&tsdata->work_i2c_poll);
+	}
 	edt_ft5x06_ts_teardown_debugfs(tsdata);
 
 	return 0;
@@ -1311,9 +1324,6 @@ static int __maybe_unused edt_ft5x06_ts_suspend(struct device *dev)
 	ret = regulator_disable(tsdata->vcc);
 	if (ret)
 		dev_warn(dev, "Failed to disable vcc\n");
-	ret = regulator_disable(tsdata->iovcc);
-	if (ret)
-		dev_warn(dev, "Failed to disable iovcc\n");
 
 	return 0;
 }
@@ -1344,19 +1354,9 @@ static int __maybe_unused edt_ft5x06_ts_resume(struct device *dev)
 		gpiod_set_value_cansleep(reset_gpio, 1);
 		usleep_range(5000, 6000);
 
-		ret = regulator_enable(tsdata->iovcc);
-		if (ret) {
-			dev_err(dev, "Failed to enable iovcc\n");
-			return ret;
-		}
-
-		/* Delay enabling VCC for > 10us (T_ivd) after IOVCC */
-		usleep_range(10, 100);
-
 		ret = regulator_enable(tsdata->vcc);
 		if (ret) {
 			dev_err(dev, "Failed to enable vcc\n");
-			regulator_disable(tsdata->iovcc);
 			return ret;
 		}
 
